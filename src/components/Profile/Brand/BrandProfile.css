@@ -1,0 +1,21 @@
+/* brows brand buttons */
+.ButtonToPost {
+  padding: 6px 25px;
+  border: 1px solid rgba(88, 61, 241, 0.521);
+  border-radius: 30px;
+  transition: 0.2s ease-in-out;
+}
+.ButtonToPost:hover {
+  background: linear-gradient(
+    to right bottom,
+    rgba(88, 61, 241, 0.521),
+    rgba(46, 0, 173, 0.521)
+  );
+  color: white;
+}
+
+.formSectionP {
+  box-shadow: none;
+  border: 1px solid gray;
+  border-radius: 10px;
+}

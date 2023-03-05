@@ -1,0 +1,93 @@
+.MyFullCont{
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+
+@keyframes slide {
+  0% {
+    transform: translateX(-25%);
+  }
+  100% {
+    transform: translateX(25%);
+  }
+}
+
+.buttonsib {
+  background-color: transparent;
+  border-radius: 0.25em;
+  box-sizing: border-box;
+  left: 50%;
+  padding: 10vmin;
+  position: fixed;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.buttonib {
+  width: 20rem;
+  height: 4rem;
+  font-size: 20px;
+  padding: 15px 50px;
+  border-radius: 40px;
+  border: none;
+  margin: 0 20px;
+  cursor: pointer;
+  font-family: 'Poppins',sans-serif;
+  transition: 0.3s ease;
+  background-color: white;
+}
+
+.buttonib:hover {
+  background-color: #ff9a02;
+  color: white;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.borderRadius{
+  border-radius: 20px;
+}
+.box-shadow-1 {
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes slidetheForm {
+  from {
+    transform: translateX(1500px);
+  }
+  to{
+    transform: translateX(0);
+  }
+}
+
+
+
+.backgroundImage{
+  background: linear-gradient(to right  , rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(https://imageio.forbes.com/specials-images/imageserve/63529aeea7726e421adbbaa8/Midsection-Of-Business-Colleagues-Working-On-Table/960x0.jpg?format=jpg&width=960);
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+.avatarImage{
+  width: 10rem;
+  height: 10rem;
+  background: url(/src/components/images/avatar.jpg);
+  background-size: cover;
+  background-position: center;
+  border: 1px solid black;
+  border-radius: 100%;
+  cursor: pointer;
+  transition: 0.1s ease-in-out;
+}
+
+.avatarImage:hover{
+  opacity: 0.5;
+  box-shadow: 0px 0px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-control{
+  width: 10vw;
+}

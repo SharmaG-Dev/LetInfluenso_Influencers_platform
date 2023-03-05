@@ -1,0 +1,102 @@
+.InfluProSidebar {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.InfluencerSideLink {
+  color: rgb(61, 61, 61);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  transition: 0.3s ease;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.InfluencerSideLinkActive {
+  color: white;
+  background: linear-gradient(
+    to right bottom,
+    rgba(88, 61, 241, 0.521),
+    rgba(46, 0, 173, 0.521)
+  );
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  transition: 0.3s ease;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.IfluPro-UserInfo {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  height: 15rem;
+  background: linear-gradient(
+      to right bottom,
+      rgba(39, 39, 39, 0.5),
+      rgba(58, 58, 58, 0.5)
+    ),
+    url("https://images8.alphacoders.com/484/484717.jpg");
+  background-position: center;
+  background-size: cover;
+  border-radius: 5px;
+}
+
+.ProfileImageAvatar {
+  width: 8rem;
+  height: 8rem;
+  margin-bottom: -40px;
+  margin-left: 20px;
+  border-radius: 5px;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+  box-sizing: content-box;
+  padding: 5px;
+  background-color: white;
+}
+
+.profileh1 {
+  font-size: 25px;
+  font-weight: 500;
+  color: white;
+}
+
+.profileh3 {
+  color: aqua;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.EditProFileBtn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
+.Tabs {
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  border: 0.5px solid gray;
+}
+
+.Tabs:hover {
+  background-color: rgb(37, 37, 37);
+  border: 0.5px solid rgb(37, 37, 37);
+  color: #fff;
+}
+
+.Tabs.active {
+  background-color: rgb(37, 37, 37);
+  color: #fff;
+}
+
+
+.InfluProFooter{
+  width: 100%;
+ 
+}
