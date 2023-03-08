@@ -15,7 +15,7 @@ const BlogCards = (
 ) => {
   return (
     <div class="col-md-12 mt-3">
-      <div class="card ">
+      <div class="card " style={{ boxShadow: "0px 0px 10px rgba(0,0,0,0.1)" }}>
         <img
           class="card-img MyBlogCardImage"
           src={url + "/uploads/" + image}

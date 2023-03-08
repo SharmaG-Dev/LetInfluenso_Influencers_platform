@@ -3,9 +3,13 @@ import image from "../images/influencerGirlTransparent.png";
 import { useState } from "react";
 import app_config from "../config";
 import { Formik } from "formik";
+import { useNavigate } from "react-router-dom";
 
 const InfluencerLogin = () => {
   const url = app_config.backend_url;
+
+  // to naviagate to any page
+  const navigate = useNavigate()
 
   // DialogBox
   const DialogBox = () => {
@@ -66,6 +70,12 @@ const InfluencerLogin = () => {
       .then((res) => {
         if (res.status === 200) {
           console.log("Login Successfully");
+          res.json().then(data => {
+            navigate("/influpro")
+            sessionStorage.setItem("user", JSON.stringify(data))
+          })
+
+
         } else {
           console.log("Login Revoked");
         }
@@ -174,7 +184,7 @@ const InfluencerLogin = () => {
               )}
             </Formik>
           </div>
-    
+
           <div className="col-md-6">
             <div className="row position-relative ">
               <h1

@@ -477,8 +477,8 @@
 .GreenButton {
   background: linear-gradient(
     to right bottom,
-    rgba(88, 61, 241, 0.521),
-    rgba(46, 0, 173, 0.521)
+    rgb(70, 70, 70),
+    rgb(24, 24, 24)
   );
   color: white;
 }

@@ -19,8 +19,8 @@
   color: white;
   background: linear-gradient(
     to right bottom,
-    rgba(88, 61, 241, 0.521),
-    rgba(46, 0, 173, 0.521)
+    rgb(53, 53, 53),
+    rgb(20, 20, 20)
   );
   cursor: pointer;
   display: flex;
@@ -95,8 +95,15 @@
   color: #fff;
 }
 
-
-.InfluProFooter{
+.InfluProFooter {
   width: 100%;
- 
+  background: linear-gradient(to right bottom, #23395b, #161925);
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.userListCardBtn {
+  border-radius: 30px;
+  color: #23395b;
+  font-size: 10px;
 }
