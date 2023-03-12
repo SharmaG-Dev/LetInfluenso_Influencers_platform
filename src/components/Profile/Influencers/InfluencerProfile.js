@@ -14,6 +14,7 @@ import BlogCards from '../../Elements/BlogCards'
 import app_config from "../../config";
 import UserCard from '../../Elements/UserCard'
 import { useInfluencerContext } from '../../../Context/InfluencersContext/InfluencersContext'
+import ProfileCardSocial from '../../Elements/ProfileCardSocial'
 
 
 
@@ -56,12 +57,12 @@ const InfluencerProfile = () => {
     const [TabHeight, setTabHeight] = useState(null)
 
 
-    useEffect(() => {
-        let container = document.querySelector('.influProHeaderMain')
-        setHeaderHeight(container.clientHeight)
-        let header = document.querySelector('.TabsFeedSection')
-        setTabHeight(header.clientHeight)
-    },)
+    // useEffect(() => {
+    //     let container = document.querySelector('.influProHeaderMain')
+    //     setHeaderHeight(container.clientHeight)
+    //     let header = document.querySelector('.TabsFeedSection')
+    //     setTabHeight(header.clientHeight)
+    // },)
 
 
 
@@ -93,9 +94,8 @@ const InfluencerProfile = () => {
 
     return (
         <Fragment>
-            {console.log(CurrentUser)}
             <Row>
-                <Col sm={2}>
+                <Col sm={3}>
                     <div className="InfluProSidebar p-3">
                         {Navlinks.map((items, index) => (
                             <div key={index} onClick={() => setIsActive(index)} className={`p-3 ${isActive === index ? "InfluencerSideLinkActive" : "InfluencerSideLink"}`}>
@@ -104,7 +104,7 @@ const InfluencerProfile = () => {
                         ))}
                     </div>
                 </Col>
-                <Col sm={6}>
+                <Col sm={9}>
                     <div className="TabsFeedSection p-3">
                         <div
                             className="PostCreateCard d-flex align-items-center justify-content-start gap-3 p-4"
@@ -117,8 +117,8 @@ const InfluencerProfile = () => {
                             ))}
                         </div>
                     </div>
-                    <div className="PostCreation d-flex">
-                        <div className="PostsSection p-2" style={{ flex: "1", height: `calc(100vh -  ${TabHeight + "px"})`, overflowY: "auto" }}>
+                    <div className="PostCreation d-flex ">
+                        <div className="PostsSection p-2" style={{ height: `calc(100vh -  ${TabHeight + "px"})`, overflowY: "auto" }}>
                             {allBlogs.reverse().map((blog) => (
                                 BlogCards(
                                     url,
@@ -135,19 +135,26 @@ const InfluencerProfile = () => {
                                 )
                             ))}
                         </div>
-                        <div className="friendsSection mt-3" style={{ flex: ".5", height: `calc(100vh -  ${TabHeight + "px"})`, overflowY: "auto" }}>
-                            {allInfluencers.slice(0, 5).map((influ) => (
-                                UserCard(influ.avatar, influ.name, influ.username)
-                            ))}
-                            <div className="seeAllButtonInfluUserList d-flex align-items-center justify-content-between p-2">
-                                <small>friend / suggested friends</small>
-                                <h6 style={{ color: "blue", cursor: "pointer" }}>See All</h6>
+                        <div className="friendsSection mt-3" style={{ height: `calc(100vh -  ${TabHeight + "px"})`, overflowY: "auto" }}>
+
+                            <div>
+                                {allInfluencers.slice(0, 5).map((influ) => (
+                                    UserCard(influ.avatar, influ.name, influ.username)
+                                ))}
+                                <div className="seeAllButtonInfluUserList d-flex align-items-center justify-content-between p-2">
+                                    <small>friend / suggested friends</small>
+                                    <h6 style={{ color: "blue", cursor: "pointer" }}>See All</h6>
+                                </div>
+                            </div>
+                            <div className=' d-flex flex-column align-items-start justify-content-start px-5 py-2'>
+                                <ProfileCardSocial />
+                                <ProfileCardSocial />
                             </div>
                         </div>
 
                     </div>
                 </Col>
-                <Col sm={4}>
+                {/* <Col sm={4}>
                     <div className='influProHeaderMain'>
                         <div className="IfluPro-UserInfo w-100 position-relative">
                             <img src={url + "/uploads/" + CurrentUser.avatar} alt="" className='img-fluid ProfileImageAvatar' />
@@ -178,7 +185,7 @@ const InfluencerProfile = () => {
                             ))}
                         </div>
                     </div>
-                </Col>
+                </Col> */}
             </Row>
         </Fragment>
     )

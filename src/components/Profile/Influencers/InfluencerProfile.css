@@ -107,3 +107,20 @@
   color: #23395b;
   font-size: 10px;
 }
+
+.friendsSection {
+  display: flex;
+  flex-wrap: wrap;
+}
+.friendsSection {
+  flex: 1 1 150px;
+}
+
+.PostCreation {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.PostCreation > div {
+  flex: 1 1 400px;
+}
