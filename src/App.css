@@ -505,7 +505,7 @@
 .ProfileCardSocial {
   padding: 1.5em 0.5em 0.5em;
   text-align: center;
-  border-radius: 2em;
+  border-radius: 10px;
   box-shadow: 0 0px 5px rgba(0, 0, 0, 0.2);
 }
 .ProfileCardName {
@@ -513,6 +513,31 @@
   font-size: 1.5em;
 }
 .VisitProfileButton {
-  border-radius: 2em;
+  border-radius: 10px;
   padding: 0.5em 1.5em;
+}
+
+.instaBackground {
+  background: linear-gradient(
+    to bottom left,
+    #405de6,
+    #5851d8,
+    #833ab4,
+    #c13584,
+    #e1306c,
+    #fd1d1d,
+    #f56040,
+    #f77737,
+    #fcaf45,
+    #ffdc80,
+    #ffffff
+  );
+}
+
+.facebookBackground {
+  background: linear-gradient(to top, #0165e1, #17a9fd);
+}
+
+.youtubeBackground {
+  background: #ff0000;
 }

@@ -147,8 +147,9 @@ const InfluencerProfile = () => {
                                 </div>
                             </div>
                             <div className=' d-flex flex-column align-items-start justify-content-start px-5 py-2'>
-                                <ProfileCardSocial />
-                                <ProfileCardSocial />
+                                <ProfileCardSocial type={"facebookBackground"} />
+                                <ProfileCardSocial type={"instaBackground"} />
+                                <ProfileCardSocial type={"youtubeBackground"} />
                             </div>
                         </div>
 
