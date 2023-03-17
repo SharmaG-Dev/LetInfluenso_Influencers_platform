@@ -515,6 +515,13 @@
 .VisitProfileButton {
   border-radius: 10px;
   padding: 0.5em 1.5em;
+  border: 1px solid rgba(255, 255, 255, 0.452);
+  transition: 0.2s ease-in-out;
+  color:rgba(255, 255, 255, 0.452);
+}
+.VisitProfileButton:hover{
+  border: 1px solid rgb(255, 255, 255);
+  color:rgb(255, 255, 255) ;
 }
 
 .instaBackground {
@@ -541,3 +548,11 @@
 .youtubeBackground {
   background: #ff0000;
 }
+
+.UpdatationEditForm{
+  display: grid;
+  grid-template-columns: repeat(2 ,1fr);
+  column-gap: 10px;
+}
+
+

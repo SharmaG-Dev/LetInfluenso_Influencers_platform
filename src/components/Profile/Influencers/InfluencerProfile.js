@@ -15,6 +15,8 @@ import app_config from "../../config";
 import UserCard from '../../Elements/UserCard'
 import { useInfluencerContext } from '../../../Context/InfluencersContext/InfluencersContext'
 import ProfileCardSocial from '../../Elements/ProfileCardSocial'
+import EditProfile from './EditProfile'
+import EditProfileForm from './EditProfileForm'
 
 
 
@@ -49,8 +51,7 @@ const InfluencerProfile = () => {
     const [isTab, setIsTab] = useState(0)
 
 
-    // Tabs Controlller 
-    const [value, setValue] = React.useState(0);
+
 
 
     const [headerHeight, setHeaderHeight] = useState(null)
@@ -105,88 +106,67 @@ const InfluencerProfile = () => {
                     </div>
                 </Col>
                 <Col sm={9}>
-                    <div className="TabsFeedSection p-3">
-                        <div
-                            className="PostCreateCard d-flex align-items-center justify-content-start gap-3 p-4"
-                        >
-                            {ProfileTabs.map((tabs, index) => (
-                                <button onClick={() => { setIsTab(index) }} key={index} className={`ButtonToPost ${isTab === index ? "GreenButton" : ""}`}
-                                >
-                                    {tabs}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                    <div className="PostCreation d-flex ">
-                        <div className="PostsSection p-2" style={{ height: `calc(100vh -  ${TabHeight + "px"})`, overflowY: "auto" }}>
-                            {allBlogs.reverse().map((blog) => (
-                                BlogCards(
-                                    url,
-                                    blog.blogImage,
-                                    blog.brand,
-                                    blog.blogTitle,
-                                    "30 min",
-                                    blog.personRequired,
-                                    blog.blogDisc,
-                                    "12 oct 2022",
-                                    "2045",
-                                    "35",
-                                    () => { DeleteTheBlog(blog) }
-                                )
-                            ))}
-                        </div>
-                        <div className="friendsSection mt-3" style={{ height: `calc(100vh -  ${TabHeight + "px"})`, overflowY: "auto" }}>
-
-                            <div>
-                                {allInfluencers.slice(0, 5).map((influ) => (
-                                    UserCard(influ.avatar, influ.name, influ.username)
+                    <div className='d-none'>
+                        <div className="TabsFeedSection p-3">
+                            <div
+                                className="PostCreateCard d-flex align-items-center justify-content-start gap-3 p-4"
+                            >
+                                {ProfileTabs.map((tabs, index) => (
+                                    <button onClick={() => { setIsTab(index) }} key={index} className={`ButtonToPost ${isTab === index ? "GreenButton" : ""}`}
+                                    >
+                                        {tabs}
+                                    </button>
                                 ))}
-                                <div className="seeAllButtonInfluUserList d-flex align-items-center justify-content-between p-2">
-                                    <small>friend / suggested friends</small>
-                                    <h6 style={{ color: "blue", cursor: "pointer" }}>See All</h6>
-                                </div>
-                            </div>
-                            <div className=' d-flex flex-column align-items-start justify-content-start px-5 py-2'>
-                                <ProfileCardSocial type={"facebookBackground"} />
-                                <ProfileCardSocial type={"instaBackground"} />
-                                <ProfileCardSocial type={"youtubeBackground"} />
                             </div>
                         </div>
+                        <div className="PostCreation d-flex ">
+                            <div className="PostsSection p-2" style={{ height: `calc(100vh -  ${TabHeight + "px"})`, overflowY: "auto" }}>
+                                {allBlogs.reverse().map((blog) => (
+                                    BlogCards(
+                                        url,
+                                        blog.blogImage,
+                                        blog.brand,
+                                        blog.blogTitle,
+                                        "30 min",
+                                        blog.personRequired,
+                                        blog.blogDisc,
+                                        "12 oct 2022",
+                                        "2045",
+                                        "35",
+                                        () => { DeleteTheBlog(blog) }
+                                    )
+                                ))}
+                            </div>
+                            <div className="friendsSection mt-3" style={{ height: `calc(100vh -  ${TabHeight + "px"})`, overflowY: "auto" }}>
 
-                    </div>
-                </Col>
-                {/* <Col sm={4}>
-                    <div className='influProHeaderMain'>
-                        <div className="IfluPro-UserInfo w-100 position-relative">
-                            <img src={url + "/uploads/" + CurrentUser.avatar} alt="" className='img-fluid ProfileImageAvatar' />
-                            <div className="d-flex flex-column ml-3">
-                                <h1 className='profileh1 px-3 py-2'>{CurrentUser.name}</h1>
-                                <h3 className='profileh3 px-3 py-1 '>{CurrentUser.category}</h3>
+                                <div>
+                                    {allInfluencers.slice(0, 5).map((influ) => (
+                                        UserCard(influ.avatar, influ.name, influ.username)
+                                    ))}
+                                    <div className="seeAllButtonInfluUserList d-flex align-items-center justify-content-between p-2">
+                                        <small>friend / suggested friends</small>
+                                        <h6 style={{ color: "blue", cursor: "pointer" }}>See All</h6>
+                                    </div>
+                                </div>
+                                <div className=' d-flex flex-column align-items-start justify-content-start px-5 py-2'>
+                                    <ProfileCardSocial type={"facebookBackground"} />
+                                    <ProfileCardSocial type={"instaBackground"} />
+                                    <ProfileCardSocial type={"youtubeBackground"} />
+                                </div>
                             </div>
-                            <Button color='secondary' outline className='EditProFileBtn ' >Edit Profile</Button>
-                        </div>
-                        <div className="InfluUserInfo_Tabs mt-5 py-2 d-flex align-items-center gap-3">
-                            {InfluProfileTabs.map((item, index) => (
-                                <div className={`Tabs rounded ${value === index ? "active" : ""}`} key={index} onClick={() => { setValue(index) }}>
-                                    <h5>{item}</h5>
-                                </div>
-                            ))}
-                        </div>
-                        <div className="GalleryContainer w-100">
-                            <ImageGallery data={itemData} />
+
                         </div>
                     </div>
-                    <div className="InfluProFooter mt-3 w-100" style={{ height: `calc(100vh - ${headerHeight + 20 + "px"}` }}>
-                        <h2>Create Section</h2>
-                        <div className="FooterTabsInfluPro py-3 d-flex align-items-center justify-content-around w-100">
-                            {FooterTabs.map((item) => (
-                                <div className="Tabs rounded">
-                                    {item}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </Col> */}
+                    <Row >
+                        <Col md={6}>
+                            <EditProfile headerHeight={headerHeight} />
+                        </Col>
+                        <Col md={6}>
+                            <EditProfileForm />
+                        </Col>
+                    </Row>
+                </Col>
+
             </Row>
         </Fragment>
     )
