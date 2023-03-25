@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import "./InfluencerProfile.css"
 import { Fragment } from 'react'
-import { Button, Card, Col, Row } from 'reactstrap'
+import { Button, Card, Col, Input, Row } from 'reactstrap'
 import { InfluProfileTabs, Navlinks, ProfileTabs, itemData, FooterTabs } from '../../dummyArray'
 import imagePro from "../../images/imagebg.jpg"
 import { Formik } from 'formik'
@@ -17,6 +17,11 @@ import { useInfluencerContext } from '../../../Context/InfluencersContext/Influe
 import ProfileCardSocial from '../../Elements/ProfileCardSocial'
 import EditProfile from './EditProfile'
 import EditProfileForm from './EditProfileForm'
+import ManageFB from '../../Elements/ManageFB'
+import ManageInsta from '../../Elements/ManageInsta'
+import ManageYoutube from '../../Elements/ManageYoutube'
+import ProfileCardFriends from '../../Elements/ProfileCardFriends'
+import BrandCards from '../../Elements/BrandCards'
 
 
 
@@ -26,9 +31,10 @@ const InfluencerProfile = () => {
     // upload image using context 
     const { ImgUpload, imageUploaded, imageName } = ImageContext()
 
-    const { allRequrement, allBlogs, GetAllBlogs } = useBlogContext()
+    const { allRequrement, allBlogs, GetAllBlogs, allBlogsAndReq } = useBlogContext()
 
 
+    const [postToDisplay, setPostToDisplay] = useState([...allRequrement, ...allBlogs])
 
     //   backend url
     const url = app_config.backend_url;
@@ -58,39 +64,67 @@ const InfluencerProfile = () => {
     const [TabHeight, setTabHeight] = useState(null)
 
 
-    // useEffect(() => {
-    //     let container = document.querySelector('.influProHeaderMain')
-    //     setHeaderHeight(container.clientHeight)
-    //     let header = document.querySelector('.TabsFeedSection')
-    //     setTabHeight(header.clientHeight)
-    // },)
-
-
-
-    // Delete the Post
-    const DeleteTheBlog = (pst) => {
-        let result = window.confirm(
-            `Are You Sure want To delete This ${pst.blogTitle} Post ? `
+    // Return Table
+    const Table = ({
+        Brand,
+        nameOfProduct,
+        influecerCate,
+        minFollowers,
+        OnSocialMedia,
+        Experience,
+        PriceOffer
+    }) => {
+        return (
+            <table>
+                <tr>
+                    <td>Brand :</td>
+                    <td>{Brand}</td>
+                </tr>
+                <tr>
+                    <td>Name Of Product:</td>
+                    <td>{nameOfProduct}</td>
+                </tr>
+                <tr>
+                    <td>Need Influencer Category:</td>
+                    <td>{influecerCate}</td>
+                </tr>
+                <tr></tr>
+                <tr>
+                    <th> Influencers requierment</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>Min-follwers :</td>
+                    <td>{minFollowers}</td>
+                </tr>
+                <tr>
+                    <td> Social Media Active :</td>
+                    <td>{OnSocialMedia}</td>
+                </tr>
+                <tr>
+                    <td>Experience :</td>
+                    <td>{Experience}</td>
+                </tr>
+                <tr className="mt-5">
+                    <th>Offers Price</th>
+                    <th>{PriceOffer}</th>
+                </tr>
+            </table>
         );
-
-        if (result === true) {
-            fetch(url + "/blog/delete/" + pst._id, {
-                method: "DELETE",
-            })
-                .then((res) => {
-                    if (res.status === 200) {
-                        console.log("Post Deleted");
-                    } else {
-                        console.log("Post not found");
-                    }
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        } else {
-            console.log("Not deleted");
-        }
     };
+
+
+
+
+    const SetTheList = (index) => {
+        if (index === 0) {
+            let allSuffledData = [...allBlogs, ...allRequrement].map(value => ({ value, sort: Math.random() }))
+                .sort((a, b) => a.sort - b.sort)
+                .map(({ value }) => value)
+            setPostToDisplay(allSuffledData)
+        }
+    }
+
 
 
     return (
@@ -99,15 +133,16 @@ const InfluencerProfile = () => {
                 <Col sm={3}>
                     <div className="InfluProSidebar p-3">
                         {Navlinks.map((items, index) => (
-                            <div key={index} onClick={() => setIsActive(index)} className={`p-3 ${isActive === index ? "InfluencerSideLinkActive" : "InfluencerSideLink"}`}>
+                            <div key={index} onClick={() => SetTheList(index)} className={`p-3 ${isActive === index ? "InfluencerSideLinkActive" : "InfluencerSideLink"}`}>
                                 <h4>{items}</h4>
                             </div>
                         ))}
                     </div>
                 </Col>
                 <Col sm={9}>
-                    <div className='d-none'>
-                        <div className="TabsFeedSection p-3">
+                    {console.log(allBlogsAndReq)}
+                    <div className={` ${isActive === 0 ? "" : "d-none"}`}>
+                        <div className="TabsFeedSection py-3">
                             <div
                                 className="PostCreateCard d-flex align-items-center justify-content-start gap-3 p-4"
                             >
@@ -119,23 +154,20 @@ const InfluencerProfile = () => {
                                 ))}
                             </div>
                         </div>
-                        <div className="PostCreation d-flex ">
-                            <div className="PostsSection p-2" style={{ height: `calc(100vh -  ${TabHeight + "px"})`, overflowY: "auto" }}>
-                                {allBlogs.reverse().map((blog) => (
-                                    BlogCards(
-                                        url,
-                                        blog.blogImage,
-                                        blog.brand,
-                                        blog.blogTitle,
-                                        "30 min",
-                                        blog.personRequired,
-                                        blog.blogDisc,
-                                        "12 oct 2022",
-                                        "2045",
-                                        "35",
-                                        () => { DeleteTheBlog(blog) }
-                                    )
-                                ))}
+                        <div className="SearchBoxBlogAndReq w-100 py-2" style={{ height: "40px" }}>
+                            <Input style={{ padding: "6px 10px" }} type="text" className='w-75' placeholder='Search blog and requirement...' />
+                        </div>
+                        <div className="PostCreation d-flex">
+                            <div className="PostsSection p-2 " style={{ height: `calc(100vh -  ${TabHeight + "px"})`, overflowY: "auto" }}>
+                                {allBlogsAndReq.map((data) => {
+                                    return data.blogImage ? (
+                                        <BlogCards data={data} backendUrl={url} />
+                                    ) :
+                                        (
+                                            <BrandCards data={data} col={12} />
+                                        );
+                                })}
+
                             </div>
                             <div className="friendsSection mt-3" style={{ height: `calc(100vh -  ${TabHeight + "px"})`, overflowY: "auto" }}>
 
@@ -157,18 +189,59 @@ const InfluencerProfile = () => {
 
                         </div>
                     </div>
-                    <Row >
+                    <div className={` row ${isActive === 1 ? "" : "d-none"}`} >
                         <Col md={6}>
                             <EditProfile headerHeight={headerHeight} />
                         </Col>
                         <Col md={6}>
                             <EditProfileForm />
                         </Col>
-                    </Row>
+                    </div>
+                    <div className={`${isActive === 2 ? "" : "d-none"}`}>
+                        <ManageFB />
+                    </div>
+                    <div className={`${isActive === 3 ? "" : "d-none"}`}>
+                        <ManageInsta />
+                    </div>
+                    <div className={`${isActive === 4 ? "" : "d-none"}`}>
+                        <ManageYoutube />
+                    </div>
+                    <div style={{ height: "100vh", overflow: "auto" }} className={`row p-3 container ${isActive === 5 ? "" : "d-none"}`}>
+
+                        {ProfileCardFriends(url, "Lifestyle , Food", imagePro, "Pragya Tripathi")}
+
+
+                        {ProfileCardFriends(url, "Lifestyle , Food", imagePro, "Pragya Tripathi")}
+
+
+                        {ProfileCardFriends(url, "Lifestyle , Food", imagePro, "Pragya Tripathi")}
+                        {ProfileCardFriends(url, "Lifestyle , Food", imagePro, "Pragya Tripathi")}
+
+
+                        {ProfileCardFriends(url, "Lifestyle , Food", imagePro, "Pragya Tripathi")}
+
+
+                        {ProfileCardFriends(url, "Lifestyle , Food", imagePro, "Pragya Tripathi")}
+                        {ProfileCardFriends(url, "Lifestyle , Food", imagePro, "Pragya Tripathi")}
+
+
+                        {ProfileCardFriends(url, "Lifestyle , Food", imagePro, "Pragya Tripathi")}
+
+
+                        {ProfileCardFriends(url, "Lifestyle , Food", imagePro, "Pragya Tripathi")}
+                        {ProfileCardFriends(url, "Lifestyle , Food", imagePro, "Pragya Tripathi")}
+
+
+                        {ProfileCardFriends(url, "Lifestyle , Food", imagePro, "Pragya Tripathi")}
+
+
+                        {ProfileCardFriends(url, "Lifestyle , Food", imagePro, "Pragya Tripathi")}
+
+                    </div>
                 </Col>
 
             </Row>
-        </Fragment>
+        </Fragment >
     )
 }
 

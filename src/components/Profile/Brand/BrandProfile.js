@@ -364,19 +364,7 @@ const BrandProfile = () => {
 
 
                 {allBlogs.filter((i) => i.userId === CurrentUser._id).reverse().map((blog) => (
-                  BlogCards(
-                    url,
-                    blog.blogImage,
-                    blog.brand,
-                    blog.blogTitle,
-                    "30 min",
-                    blog.personRequired,
-                    blog.blogDisc,
-                    "12 oct 2022",
-                    "2045",
-                    "35",
-                    () => { DeleteTheBlog(blog) }
-                  )
+                  <BlogCards data={blog} backendUrl={url} />
                 ))}
 
               </div>

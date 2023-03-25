@@ -102,7 +102,7 @@ export default function BasicTabs() {
 
   const ProfileCard = (category, image, name) => {
     return (
-      <div className="col-md-6 ">
+      < div className="col-md-6 " >
         <div
           style={{ height: "20rem" }}
           className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
@@ -142,7 +142,7 @@ export default function BasicTabs() {
             />
           </div>
         </div>
-      </div>
+      </div >
     );
   };
   const [value, setValue] = React.useState(0);
@@ -175,19 +175,9 @@ export default function BasicTabs() {
       </TabPanel>
       <TabPanel style={{ overflowX: "auto" }} value={value} index={1}>
         <div className="row">
-          {allRequrement.map((p) =>
-            BrandCards(
-              p.brand,
-              Table(
-                p.brand,
-                p.nameofproduct,
-                p.category,
-                p.minFollowers,
-                p.socialMedia,
-                p.experience,
-                p.offerPrice
-              )
-            )
+
+          {allRequrement.map((data) =>
+            <BrandCards data={data} col={6} />
           )}
         </div>
       </TabPanel>

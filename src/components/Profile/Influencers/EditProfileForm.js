@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import { Input } from 'reactstrap';
+import { Button, Input } from 'reactstrap';
 import app_config from '../../config';
 
 const EditProfileForm = () => {
@@ -83,6 +83,14 @@ const EditProfileForm = () => {
                 <Input className='w-100 mb-3' type="text" placeholder='Instagram Username' />
                 <Input className='w-100 mb-3' type="text" placeholder='Experience' />
             </form>
+            <div className="MediaUploadSec mt-2">
+                <h4 className='text-muted fs-6 underline'>Uplaod Media's </h4>
+                <div className="MediaUplaodTabs w-100 d-flex align-items-center justify-content-start gap-4">
+                    <Button outline color='dark'>Upload Potos</Button>
+                    <Button outline color='dark'>Upload Media </Button>
+                    <Button outline color='dark'>Upload Reels </Button>
+                </div>
+            </div>
         </div>
     )
 }

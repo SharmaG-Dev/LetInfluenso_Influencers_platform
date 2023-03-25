@@ -14,7 +14,8 @@ const initialState = {
     isError: false,
     allBlogs: [],
     allRequrement: [],
-    allBlogsReq: []
+    allBlogsReq: [],
+    allBlogsAndReq: []
 }
 
 
@@ -26,7 +27,7 @@ const BlogProvider = ({ children }) => {
 
 
     const GetAllBlogs = async () => {
-        dispatch({type:"API_LOADING"})
+        dispatch({ type: "API_LOADING" })
         try {
             const requirement_res = await axios.get(url + "/requirement/get")
             const blog_res = await axios.get(url + "/blog/get")
@@ -34,7 +35,7 @@ const BlogProvider = ({ children }) => {
             const reqdata = await requirement_res.data
             dispatch({ type: "MY_API_DATA", payload: [blogData, reqdata] })
         } catch (error) {
-            dispatch({type:"API_ERROR"})
+            dispatch({ type: "API_ERROR" })
         }
 
     }
@@ -46,15 +47,15 @@ const BlogProvider = ({ children }) => {
 
 
 
-    return <BlogContext.Provider value={{ ...state ,GetAllBlogs}}>
+    return <BlogContext.Provider value={{ ...state, GetAllBlogs }}>
         {children}
     </BlogContext.Provider>
 
 }
 
-const useBlogContext = () =>{
+const useBlogContext = () => {
     return useContext(BlogContext)
 }
 
 
-export { BlogProvider , useBlogContext } ;
+export { BlogProvider, useBlogContext };

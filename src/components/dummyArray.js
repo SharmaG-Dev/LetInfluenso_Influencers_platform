@@ -5,13 +5,13 @@ export const Navlinks = [
 
 
 export const ProfileTabs = [
-    "Blog", "Media", "Article"
+    "Blog", "Brand Requirements", "Blog Brands"
 ]
 
 
 
 export const InfluProfileTabs = [
-    "All", "Photos", "Media", "Reels","Info"
+    "All", "Photos", "Media", "Reels", "Info"
 ]
 
 
