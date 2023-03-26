@@ -5,6 +5,8 @@ import { useState } from "react";
 import app_config from "../config";
 import { useNavigate, useParams } from "react-router-dom";
 import { useInfluencerContext } from "../../Context/InfluencersContext/InfluencersContext";
+import ProfileCardUser from "../Elements/ProfileCardUser";
+import axios from "axios";
 // import { Profile } from 'react-facebook';
 // import image from "../images/imagebg.jpg";
 
@@ -12,68 +14,49 @@ const BrowseInfluencer = () => {
   const { id } = useParams();
   const url = app_config.backend_url;
 
+  // current user 
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(sessionStorage.getItem('user'))
+  )
+
+
 
   const navigate = useNavigate();
 
   const { allInfluencers, isLoading, isError } = useInfluencerContext()
 
 
-  // Follow Button
-  const Followed = (e) => {
-    if (e.target.innerText === "Followed") {
-      e.target.innerText = "Follow";
-      e.target.style.background = ""
-      e.target.style.color = ""
-    } else {
-      e.target.innerText = "Followed";
-      e.target.style.background = "#00ad65"
-      e.target.style.color = "white"
-    }
-  };
+  const { FollowTheUser, UnfollowTheUser, GetAllInfluencer } = useInfluencerContext();
 
-  // profile card
-  const ProfileCard = (category, image, name) => {
-    return (
-      <div className="col-md-6">
-        <div
-          style={{ height: "20rem" }}
-          className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
-        >
-          <div className="col p-4 d-flex flex-column position-static">
-            <strong className="d-inline-block mb-2 text-primary">
-              {category}
-            </strong>
-            <h3 className="mb-0">{name}</h3>
-            <div className="mb-1 text-muted">Nov 12</div>
-            <p className="card-text mb-auto">
-              Hello i am influencer who worked for you and make your brand
-              famous So Hire me The Price should be negotiable
-            </p>
-            <div className="d-flex gap-3">
-              <button
-                onClick={(e) => {
-                  Followed(e);
-                }}
-                className="FollowBtnCard"
-              >
-                Follow
-              </button>
-              <button className="FollowBtnCard">Chat</button>
-            </div>
-          </div>
-          <div className="col-auto d-none d-lg-block">
-            <img
-              className="bd-placeholder-img"
-              width="200"
-              style={{ height: "100%", objectFit: "cover" }}
-              src={url + "/uploads/" + image}
-              role="img"
-            />
-          </div>
-        </div>
-      </div>
-    );
-  };
+  const [buttonText, setButtonText] = useState("Follow");
+  const CurrentUserFollowingList = [...new Set(currentUser.following)];
+  const CurrentUserFollowerList = [...new Set(currentUser.followers)];
+  const bothsideFollow = [...new Set(CurrentUserFollowingList.filter(element => CurrentUserFollowerList.includes(element)))];
+
+  // Follow Button
+  const Follow = async (url, id) => {
+    try {
+      const res = await axios.patch(url + "/influencer/follow/" + currentUser._id, { secondperson: id })
+      setCurrentUser(res.data)
+      GetAllInfluencer()
+    } catch (error) {
+      console.log("error hai follow me ")
+    }
+  }
+
+
+  // Follow Button
+  const UnFollow = async (url, id) => {
+    try {
+      const res = await axios.patch(url + "/influencer/unfollow/" + currentUser._id, { secondperson: id })
+      setCurrentUser(res.data)
+      GetAllInfluencer()
+    } catch (error) {
+      console.log("error hai follow me ")
+    }
+  }
+
+
 
 
   const toProfile = () => {
@@ -98,7 +81,7 @@ const BrowseInfluencer = () => {
             <div className="container">
               <div className="row mb-2">
                 {allInfluencers.map((data) =>
-                  ProfileCard(data.category, data.avatar, data.name)
+                  <ProfileCardUser data={data} url={url} follow={Follow} CurrentUserFollowingList={CurrentUserFollowingList} UnFollow={UnFollow} />
                 )}
               </div>
             </div>

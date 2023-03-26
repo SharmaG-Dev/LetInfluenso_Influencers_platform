@@ -25,9 +25,9 @@ const InfluencersGet = (state, action) => {
     }
 
 
- 
+
 }
 
 
 
-export default InfluencersGet ;
+export default InfluencersGet;

@@ -34,10 +34,13 @@ const InfluencerProfile = () => {
     const { allRequrement, allBlogs, GetAllBlogs, allBlogsAndReq } = useBlogContext()
 
 
-    const [postToDisplay, setPostToDisplay] = useState([...allRequrement, ...allBlogs])
-
+    
     //   backend url
     const url = app_config.backend_url;
+
+
+    // all the types of data
+    const ApiArray = [allBlogsAndReq, allRequrement, allBlogs]
 
 
     //   user from sesssion storage
@@ -64,66 +67,7 @@ const InfluencerProfile = () => {
     const [TabHeight, setTabHeight] = useState(null)
 
 
-    // Return Table
-    const Table = ({
-        Brand,
-        nameOfProduct,
-        influecerCate,
-        minFollowers,
-        OnSocialMedia,
-        Experience,
-        PriceOffer
-    }) => {
-        return (
-            <table>
-                <tr>
-                    <td>Brand :</td>
-                    <td>{Brand}</td>
-                </tr>
-                <tr>
-                    <td>Name Of Product:</td>
-                    <td>{nameOfProduct}</td>
-                </tr>
-                <tr>
-                    <td>Need Influencer Category:</td>
-                    <td>{influecerCate}</td>
-                </tr>
-                <tr></tr>
-                <tr>
-                    <th> Influencers requierment</th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <td>Min-follwers :</td>
-                    <td>{minFollowers}</td>
-                </tr>
-                <tr>
-                    <td> Social Media Active :</td>
-                    <td>{OnSocialMedia}</td>
-                </tr>
-                <tr>
-                    <td>Experience :</td>
-                    <td>{Experience}</td>
-                </tr>
-                <tr className="mt-5">
-                    <th>Offers Price</th>
-                    <th>{PriceOffer}</th>
-                </tr>
-            </table>
-        );
-    };
 
-
-
-
-    const SetTheList = (index) => {
-        if (index === 0) {
-            let allSuffledData = [...allBlogs, ...allRequrement].map(value => ({ value, sort: Math.random() }))
-                .sort((a, b) => a.sort - b.sort)
-                .map(({ value }) => value)
-            setPostToDisplay(allSuffledData)
-        }
-    }
 
 
 
@@ -133,14 +77,14 @@ const InfluencerProfile = () => {
                 <Col sm={3}>
                     <div className="InfluProSidebar p-3">
                         {Navlinks.map((items, index) => (
-                            <div key={index} onClick={() => SetTheList(index)} className={`p-3 ${isActive === index ? "InfluencerSideLinkActive" : "InfluencerSideLink"}`}>
+                            <div key={index} onClick={() => setIsActive(index)} className={`p-3 ${isActive === index ? "InfluencerSideLinkActive" : "InfluencerSideLink"}`}>
                                 <h4>{items}</h4>
                             </div>
                         ))}
                     </div>
                 </Col>
                 <Col sm={9}>
-                    {console.log(allBlogsAndReq)}
+                    {/* {console.log(allBlogsAndReq)} */}
                     <div className={` ${isActive === 0 ? "" : "d-none"}`}>
                         <div className="TabsFeedSection py-3">
                             <div
@@ -159,7 +103,7 @@ const InfluencerProfile = () => {
                         </div>
                         <div className="PostCreation d-flex">
                             <div className="PostsSection p-2 " style={{ height: `calc(100vh -  ${TabHeight + "px"})`, overflowY: "auto" }}>
-                                {allBlogsAndReq.map((data) => {
+                                {ApiArray[isTab].map((data) => {
                                     return data.blogImage ? (
                                         <BlogCards data={data} backendUrl={url} />
                                     ) :
