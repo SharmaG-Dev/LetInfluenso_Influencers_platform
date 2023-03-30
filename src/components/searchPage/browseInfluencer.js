@@ -33,29 +33,13 @@ const BrowseInfluencer = () => {
   const CurrentUserFollowerList = [...new Set(currentUser.followers)];
   const bothsideFollow = [...new Set(CurrentUserFollowingList.filter(element => CurrentUserFollowerList.includes(element)))];
 
-  // Follow Button
-  const Follow = async (url, id) => {
-    try {
-      const res = await axios.patch(url + "/influencer/follow/" + currentUser._id, { secondperson: id })
-      setCurrentUser(res.data)
-      GetAllInfluencer()
-    } catch (error) {
-      console.log("error hai follow me ")
-    }
-  }
 
+  const [removeList, setRemoveList] = useState([])
 
-  // Follow Button
-  const UnFollow = async (url, id) => {
-    try {
-      const res = await axios.patch(url + "/influencer/unfollow/" + currentUser._id, { secondperson: id })
-      setCurrentUser(res.data)
-      GetAllInfluencer()
-    } catch (error) {
-      console.log("error hai follow me ")
-    }
-  }
-
+  const RemoveCard = (id => {
+    const arr = [...removeList, id]
+    setRemoveList(arr)
+  })
 
 
 
@@ -80,8 +64,8 @@ const BrowseInfluencer = () => {
           <div className="content_browsed">
             <div className="container">
               <div className="row mb-2">
-                {allInfluencers.map((data) =>
-                  <ProfileCardUser data={data} url={url} follow={Follow} CurrentUserFollowingList={CurrentUserFollowingList} UnFollow={UnFollow} />
+                {allInfluencers.filter(item => item._id !== currentUser._id).filter(item => removeList.includes(item._id) === false).map((data) =>
+                  <ProfileCardUser data={data} url={url} removeFunction={RemoveCard} />
                 )}
               </div>
             </div>

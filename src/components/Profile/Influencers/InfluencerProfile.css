@@ -124,3 +124,19 @@
 .PostCreation > div {
   flex: 1 1 400px;
 }
+
+.ProfileCardUserCrossBtn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background-color: rgba(255, 255, 255, 0.301);
+  padding: 5px;
+  border-radius: 100%;
+  z-index: 1;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.ProfileCardUserCrossBtn:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}

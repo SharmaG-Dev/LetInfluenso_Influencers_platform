@@ -1,5 +1,5 @@
 export const Navlinks = [
-    "Feeds", "Edit Profile", "Manage FB", "Manage Instagram", "Manage Youtube", "Friends", "Analytics"
+    "Feeds", "Edit Profile", "Manage FB", "Manage Instagram", "Manage Youtube", "Friends", "Analytics", "Log Out"
 ]
 
 

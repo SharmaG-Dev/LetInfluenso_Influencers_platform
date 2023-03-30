@@ -17,20 +17,18 @@ const initialState = {
     isLoading: false,
     isError: false,
     allInfluencers: [],
-    ifFollowLoading: false,
-    isFollowed: false,
-    isFollowError: false
 }
 
 const InfluencerProvider = ({ children }) => {
-
-    const [updatedCurrentUser, serUpdatedCurrentUser] = useState({})
-
 
     const [CurrentUser, setCurrentUser] = useState(
         JSON.parse(sessionStorage.getItem("user"))
     )
 
+
+    // current user Following List and Unfollow List 
+    const [Follower, setFollower] = useState([])
+    const [Following, setFollowing] = useState([])
 
     const [state, dispatch] = useReducer(reducer, initialState)
 
@@ -51,33 +49,34 @@ const InfluencerProvider = ({ children }) => {
     }, [])
 
 
-    const FollowTheUser = async (id) => {
-        console.log(id)
-        let result;
+
+
+    // Follow Button
+    const Follow = async (id) => {
         try {
             const res = await axios.patch(BackendUrl + "/influencer/follow/" + CurrentUser._id, { secondperson: id })
-            if (res.data) {
-                currentUserUpdate(CurrentUser._id)
-                result = true
+            if (res.status === 200) {
+                await GetAllInfluencer()
+                await setCurrentUser(res.data)
+                console.log("follow ho gay")
             }
         } catch (error) {
-            result = false
+            console.log("error hai follow me ")
         }
-        return result
     }
-    const UnfollowTheUser = async (id) => {
-        console.log(id)
-        let result;
+
+
+    // Follow Button
+    const UnFollow = async (id) => {
         try {
             const res = await axios.patch(BackendUrl + "/influencer/unfollow/" + CurrentUser._id, { secondperson: id })
-            if (res.data) {
-                await currentUserUpdate(CurrentUser._id)
-                result = true
+            if (res.status === 200) {
+                await GetAllInfluencer()
+                await setCurrentUser(res.data)
             }
         } catch (error) {
-            result = false
+            console.log("error hai follow me ")
         }
-        return result
     }
 
     const currentUserUpdate = async (id) => {
@@ -96,10 +95,13 @@ const InfluencerProvider = ({ children }) => {
 
     return <InfluencerContext.Provider value={{
         ...state,
-        FollowTheUser: FollowTheUser,
-        UnfollowTheUser: UnfollowTheUser,
         currentUserUpdate: currentUserUpdate,
-        GetAllInfluencer: GetAllInfluencer
+        GetAllInfluencer: GetAllInfluencer,
+        Follow: Follow,
+        CurrentUser: CurrentUser,
+        UnFollow: UnFollow,
+        Follower: Follower,
+        Following: Following
     }}>
         {children}
     </InfluencerContext.Provider>

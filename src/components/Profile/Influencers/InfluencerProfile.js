@@ -22,10 +22,13 @@ import ManageInsta from '../../Elements/ManageInsta'
 import ManageYoutube from '../../Elements/ManageYoutube'
 import ProfileCardFriends from '../../Elements/ProfileCardFriends'
 import BrandCards from '../../Elements/BrandCards'
+import { useNavigate } from 'react-router-dom'
 
 
 
 const InfluencerProfile = () => {
+
+    const navigate = useNavigate()
 
     // context api data of brand profile please change it 
     // upload image using context 
@@ -34,7 +37,7 @@ const InfluencerProfile = () => {
     const { allRequrement, allBlogs, GetAllBlogs, allBlogsAndReq } = useBlogContext()
 
 
-    
+
     //   backend url
     const url = app_config.backend_url;
 
@@ -68,6 +71,10 @@ const InfluencerProfile = () => {
 
 
 
+    const LogOutInfluencer = () => {
+        sessionStorage.removeItem("user")
+        navigate("/auth")
+    }
 
 
 
@@ -77,7 +84,7 @@ const InfluencerProfile = () => {
                 <Col sm={3}>
                     <div className="InfluProSidebar p-3">
                         {Navlinks.map((items, index) => (
-                            <div key={index} onClick={() => setIsActive(index)} className={`p-3 ${isActive === index ? "InfluencerSideLinkActive" : "InfluencerSideLink"}`}>
+                            <div key={index} onClick={index === 7 ? () => { LogOutInfluencer() } : () => setIsActive(index)} className={`p-3 ${isActive === index ? "InfluencerSideLinkActive" : "InfluencerSideLink"}`}>
                                 <h4>{items}</h4>
                             </div>
                         ))}

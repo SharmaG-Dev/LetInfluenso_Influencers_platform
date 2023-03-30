@@ -1,18 +1,20 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
+import { X } from "react-feather";
 import { useInfluencerContext } from "../../Context/InfluencersContext/InfluencersContext";
 
 // profile card
-const ProfileCardUser = ({ data, url, follow, CurrentUserFollowingList, UnFollow }) => {
+const ProfileCardUser = ({ data, url }) => {
 
 
-
+    const { Follow, UnFollow, Follower, Following, allInfluencers, CurrentUser, removeFunction } = useInfluencerContext()
 
 
 
     return (
-        <div className="col-md-6">
+        <div className="col-md-6 position-relative">
+            <span className="ProfileCardUserCrossBtn" onClick={() => removeFunction(data._id)} ><X color="#333" /></span>
             <div
                 style={{ height: "20rem" }}
                 className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
@@ -29,10 +31,10 @@ const ProfileCardUser = ({ data, url, follow, CurrentUserFollowingList, UnFollow
                     </p>
                     <div className="d-flex gap-3">
                         <button
-                            onClick={(e) => { e.target.innerText === "Follow" ? follow(url, data._id) : UnFollow(url, data._id) }}
+                            onClick={(e) => { [...new Set(data.followers)].includes(CurrentUser._id) ? UnFollow(data._id) : [...new Set(data.following)].includes(CurrentUser._id) ? Follow(data._id) : Follow(data._id) }}
                             className="FollowBtnCard"
                         >
-                            {CurrentUserFollowingList.includes(data._id) ? "Unfollow" : "Follow"}
+                            {[...new Set(data.followers)].includes(CurrentUser._id) ? "Following" : [...new Set(data.following)].includes(CurrentUser._id) ? "Follow Back" : "Follow"}
                         </button>
                         <button className="FollowBtnCard">Chat</button>
                     </div>
